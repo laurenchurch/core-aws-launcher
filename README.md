@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains the AWS EKS Marketplace deployment resources to launch [CloudBees Core](https://www.cloudbees.com/products/cloudbees-core) on EKS. 
+This repository contains the resources to launch [CloudBees Core](https://www.cloudbees.com/products/cloudbees-core) on EKS using CloudFormation. 
 
 ## Get Started
 
@@ -15,6 +15,7 @@ This repository contains the AWS EKS Marketplace deployment resources to launch 
 2. Click Next to go to the CloudFormation Details section to enter your input values.
 3. Enter the following:
 
+* **Stack name** (required) - This is the CloudFormation stack name and also the namespace name for CloudBees Core to be used below.
 * **BootstrapArguments** (optional) - See files/bootstrap.sh in https://github.com/awslabs/amazon-eks-ami
 * **ClusterName** (required) - This is the name of the new EKS cluster.
 * **EKSRoleARN** (required) - This is the IAM role that EKS will use to access other AWS services. It must have AmazonEKSClusterPolicy and AmazonEKSServicePolicy.
@@ -62,7 +63,7 @@ kube-system        Active    8m
 
 7. Get the initial admin password.
 
-`kubectl exec cjoc-0 -- cat /var/jenkins_home/secrets/initialAdminPassword`
+`kubectl exec -n <cloudformation stackname> cjoc-0 -- cat /var/jenkins_home/secrets/initialAdminPassword`
 
 8. Enter that URL into your browser.
 9. You will be presented with the CloudBees Core setup wizard. The first step is to enter the initial admin password. Enter it from above.
