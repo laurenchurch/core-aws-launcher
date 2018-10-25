@@ -3,7 +3,7 @@
 yum update -y
 yum install jq -y
 yum install git -y
-yum install openssl -y
+#yum install openssl -y
 JQ_COMMAND=/usr/bin/jq
 WORKER_NODES_CFN=https://s3.amazonaws.com/scratch_bucket/eks/auto-eks/create-eks-workers.yaml
 
@@ -146,12 +146,7 @@ kubectl create -f gp2-storage-class.yaml
 kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 kubectl get storageclass
 
-
-curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
-chmod 700 get_helm.sh
-./get_helm.sh
-
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/provider/mandatory.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
 
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/provider/aws/service-l4.yaml
 
@@ -159,28 +154,22 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/mast
 
 kubectl patch service ingress-nginx -p '{"spec":{"externalTrafficPolicy":"Local"}}' -n ingress-nginx
 
-while [[ "$(kubectl get svc ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].ip}')" = '' ]]; do sleep 3; done
-    INGRESS_IP=$(kubectl get svc ingress-nginx  -o jsonpath='{.status.loadBalancer.ingress[0].ip}' | sed 's/"//g')
+while [[ "$(kubectl -n ingress-nginx get svc ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')" = '' ]]; do sleep 3; done
+    INGRESS_IP=$(kubectl -n ingress-nginx get svc ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' | sed 's/"//g')
     echo "NGINX INGRESS: $INGRESS_IP"
-    DOMAIN_NAME="$INGRESS_IP.xip.io"
-    HOSTNAME=`echo $DOMAIN_NAME | sed "s/\"//g"`
-    CJEHOSTNAME="$cjedns.$HOSTNAME"
+    CJEHOSTNAME=`echo $INGRESS_IP | sed "s/\"//g"`
 
 kubectl create namespace ${NAMESPACE}
 kubectl config set-context $(kubectl config current-context) --namespace=${NAMESPACE}
 
-curl -O https://raw.githubusercontent.com/CloudBees/core-aws-launcher/master/cert/server.config
-sed -i -e "s#cje.example.com#$CJEHOSTNAME#" "server.config"
+#curl -O https://raw.githubusercontent.com/CloudBees/core-aws-launcher/master/cert/server.config
+#sed -i -e "s#cje.example.com#$CJEHOSTNAME#" "server.config"
 
-openssl req -config server.config -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
+#openssl req -config server.config -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
 
-echo "Created server.key"
-echo "Created server.csr"
+#openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 
-openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-echo "Created server.crt (self-signed)"
-
-kubectl create secret tls cjoc-tls --cert=server.crt --key=server.key
+#kubectl create secret tls cjoc-tls --cert=server.crt --key=server.key
 
 curl -O https://raw.githubusercontent.com/CloudBees/core-aws-launcher/master/manifest/cloudbees-core.yml
 sed -i -e "s#cje.example.com#$CJEHOSTNAME#" "cloudbees-core.yml"

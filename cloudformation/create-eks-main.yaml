@@ -308,7 +308,7 @@
             "Fn::Join": ["", [
               "#!/bin/bash -ex", "\n",
               "mkdir -p /home/ec2-user/bin", "\n",
-              "wget https://s3.amazonaws.com/scratch_bucket/eks/auto-eks/bootstrap.sh --output-document=/home/ec2-user/bin/bootstrap.sh", "\n",
+              "wget https://raw.githubusercontent.com/cloudbees/core-aws-launcher/master/scripts/bootstrap.sh --output-document=/home/ec2-user/bin/bootstrap.sh", "\n",
 
               "/bin/sh -x /home/ec2-user/bin/bootstrap.sh ",
               " -c ", {
