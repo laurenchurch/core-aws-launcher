@@ -16,7 +16,6 @@ usage() {
         -s SUBNET_IDS
         -g SECURITY_GROUP
         -n STACK_NAME
-        -ns NAMESPACE
 EOF
     exit 1
 }
@@ -36,8 +35,6 @@ while getopts ":c:r:s:g:n:ns" o; do
         r) ROLE_ARN=${OPTARG}
             ;;
         n) STACK_NAME=${OPTARG}
-            ;;
-        ns) NAMESPACE=${OPTARG}
             ;;
         *)
             usage
@@ -159,8 +156,8 @@ while [[ "$(kubectl -n ingress-nginx get svc ingress-nginx -o jsonpath='{.status
     echo "NGINX INGRESS: $INGRESS_IP"
     CJEHOSTNAME=`echo $INGRESS_IP | sed "s/\"//g"`
 
-kubectl create namespace ${NAMESPACE}
-kubectl config set-context $(kubectl config current-context) --namespace=${NAMESPACE}
+kubectl create namespace ${STACK_NAME}
+kubectl config set-context $(kubectl config current-context) --namespace=${STACK_NAME}
 
 #curl -O https://raw.githubusercontent.com/CloudBees/core-aws-launcher/master/cert/server.config
 #sed -i -e "s#cje.example.com#$CJEHOSTNAME#" "server.config"
