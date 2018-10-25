@@ -28,14 +28,21 @@ This repository contains the AWS EKS Marketplace deployment resources to launch 
 6. Go to the [EKS Console](https://console.aws.amazon.com/eks/) and wait for the EKS cluster to be created. This will take several minutes.
 
 ### Connect to the EKS Cluster
-1. When completed, go to the [EC2 console](https://console.aws.amazon.com/ec2) to get the public IP of the EC2 controller node.
+1. When completed and the EKS cluster shows *Active*, go to the [EC2 console](https://console.aws.amazon.com/ec2) to get the public IP of the EC2 controller node.
 2. SSH to the controller node using the key pair that you specified.
+
 `ssh -i <key.pem> <controller-node-ip>`
+
 3. Set the kubeconfig.
+
 `export KUBECONFIG=/home/ec2-user/.kube/config`
+
 4. Set your kubernetes context.
+
 `sudo aws eks update-kubeconfig --name <eks-cluster-name> --region <region> --kubeconfig $KUBECONFIG`
+
 5. Execute the following to get the list of namespaces.
+
 `kubectl get namespaces`
 
 You should see something like this.
@@ -50,9 +57,13 @@ kube-system        Active    8m
 ```
 
 6. Get the URL for CloudBees Core.
+
 `kubectl -n ingress-nginx get svc ingress-nginx -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'`
+
 7. Get the initial admin password.
+
 `kubectl exec cjoc-0 -- cat /var/jenkins_home/secrets/initialAdminPassword`
+
 8. Enter that URL into your browser.
 9. You will be presented with the CloudBees Core setup wizard. The first step is to enter the initial admin password. Enter it from above.
 10. Complete the next steps of the setup wizard to install plugins and create your first user. You may request a trial license or enter a commercial license.
