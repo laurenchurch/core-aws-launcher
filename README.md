@@ -79,6 +79,15 @@ kube-system        Active    8m
 ### DNS Setup
 [Follow these steps to configure DNS for CloudBees Core](https://go.cloudbees.com/docs/cloudbees-core/cloud-install-guide/eks-install/#_dns_record)
 
+## Licensing
+Request a license by sending an email to info@cloudbees.com or support@cloudbees.com.
+
+## CloudBees Support
+[CloudBees Support](https://go.cloudbees.com/)
+
+## Open Source Jenkins Dedicated Support
+[Jenkins Support](https://www.cloudbees.com/products/cloudbees-jenkins-support)
+
 ## Additional Documentation
 * [Using CloudBees Core on EKS](https://go.cloudbees.com/docs/cloudbees-core/cloud-install-guide/eks-install/)
 * [Reference Architecture](https://go.cloudbees.com/docs/cloudbees-core/cloud-reference-architecture/ra-for-eks/)
