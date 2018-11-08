@@ -27,6 +27,9 @@ This repository contains the resources to launch [CloudBees Core](https://www.cl
 4. Click Next on the next steps and follow through to create the stack.
 5. Monitor the status of the stack as the resources are created.
 6. Go to the [EKS Console](https://console.aws.amazon.com/eks/) and wait for the EKS cluster to be created. This will take several minutes.
+7. Go to the EC2 console and ensure that your EKS worker nodes are ready (running and checks complete).
+
+![EC2](https://s3.amazonaws.com/core-aws-launcher/EC2-EKS-nodes.png)
 
 ### Connect to the EKS Cluster
 1. When completed and the EKS cluster shows *Active*, go to the [EC2 console](https://console.aws.amazon.com/ec2) to get the public IP of the EC2 controller node.
