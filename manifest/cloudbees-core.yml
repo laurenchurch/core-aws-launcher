@@ -90,7 +90,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: jenkins
-        image: cloudbees/cloudbees-cloud-core-oc:2.138.1.2
+        image: 217273820646.dkr.ecr.us-east-1.amazonaws.com/41cbf0fc-13a6-4509-a0b4-8a82a389762d/cg-1787566749/cloudbees-cloud-core-oc:2.138.1.2-latest
         env:
         - name: ENVIRONMENT
           value: KUBERNETES
@@ -115,7 +115,7 @@ spec:
             -Dhudson.lifecycle=hudson.lifecycle.ExitLifecycle
             -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.disableAutoConfiguration=true
             -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImageName="CloudBees Core - Managed Master 2.138.1.2"
-            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImage=cloudbees/cloudbees-core-mm:2.138.1.2
+            -Dcom.cloudbees.jce.masterprovisioning.DockerImageDefinitionConfiguration.masterImage=217273820646.dkr.ecr.us-east-1.amazonaws.com/41cbf0fc-13a6-4509-a0b4-8a82a389762d/cg-1787566749/cloudbees-core-mm:2.138.1.2-latest
         - name: MEM_LIMIT
           valueFrom:
             resourceFieldRef:
