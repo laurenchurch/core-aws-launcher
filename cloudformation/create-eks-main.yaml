@@ -110,7 +110,7 @@
       "MinLength":5
     },
     "BootstrapArguments": {
-      "Description": "Arguments to pass to the bootstrap script. See files/bootstrap.sh in https://github.com/awslabs/amazon-eks-ami",
+      "Description": "Arguments to pass to the bootstrap script. See https://github.com/cloudbees/core-aws-launcher/tree/master/scripts/bootstrap.sh",
       "Default": "",
       "Type": "String"
     },
@@ -128,7 +128,7 @@
     "vpcStack": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/scratch_bucket/eks/auto-eks/create-eks-vpc.yaml",
+        "TemplateURL": "https://s3.amazonaws.com/core-aws-launcher/create-eks-vpc.yaml",
         "TimeoutInMinutes": "60"
       }
     },
@@ -308,7 +308,7 @@
             "Fn::Join": ["", [
               "#!/bin/bash -ex", "\n",
               "mkdir -p /home/ec2-user/bin", "\n",
-              "wget https://raw.githubusercontent.com/cloudbees/core-aws-launcher/master/scripts/bootstrap.sh --output-document=/home/ec2-user/bin/bootstrap.sh", "\n",
+              "wget https://s3.amazonaws.com/core-aws-launcher/bootstrap.sh --output-document=/home/ec2-user/bin/bootstrap.sh", "\n",
 
               "/bin/sh -x /home/ec2-user/bin/bootstrap.sh ",
               " -c ", {

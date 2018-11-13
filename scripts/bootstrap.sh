@@ -5,7 +5,7 @@ yum install jq -y
 yum install git -y
 #yum install openssl -y
 JQ_COMMAND=/usr/bin/jq
-WORKER_NODES_CFN=https://s3.amazonaws.com/scratch_bucket/eks/auto-eks/create-eks-workers.yaml
+WORKER_NODES_CFN=https://s3.amazonaws.com/core-aws-launcher/create-eks-workers.yaml
 
 usage() {
     cat <<EOF
@@ -133,12 +133,12 @@ export NODEINSTANCEROLE=$(aws cloudformation describe-stacks --stack-name ${WORK
 
 #export NODEINSTANCEROLE=${AWS_INSTANCE_IAM_ROLE_ARN}
 
-curl -O https://s3.amazonaws.com/scratch_bucket/eks/auto-eks/aws-auth-cm.yaml
+curl -O https://s3.amazonaws.com/core-aws-launcher/aws-auth-cm.yaml
 envsubst < aws-auth-cm.yaml > aws-auth-cm-mod.yaml
 kubectl apply -f  aws-auth-cm-mod.yaml 
 
 
-curl -O https://s3.amazonaws.com/scratch_bucket/eks/auto-eks/gp2-storage-class.yaml
+curl -O https://s3.amazonaws.com/core-aws-launcher/gp2-storage-class.yaml
 kubectl create -f gp2-storage-class.yaml
 kubectl patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 kubectl get storageclass
