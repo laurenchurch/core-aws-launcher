@@ -390,7 +390,7 @@ kbd {
 <li>When completed and the EKS cluster shows <em>Active</em>, go to the <a href="https://console.aws.amazon.com/ec2">EC2 console</a> to get the public IP of the EC2 controller node.</li>
 <li>SSH to the controller node using the key pair that you specified.</li>
 
-<p><code>ssh -i &lt;key.pem&gt; &lt;controller-node-ip&gt;</code></p>
+<p><code>ssh -i &lt;key.pem&gt; ec2-user@&lt;controller-node-ip&gt;</code></p>
 
 <li>Set the kubeconfig.</li>
 

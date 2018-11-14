@@ -48,7 +48,7 @@ This repository contains the resources to launch [CloudBees Core](https://www.cl
 1. When completed and the EKS cluster shows *Active*, go to the [EC2 console](https://console.aws.amazon.com/ec2) to get the public IP of the EC2 controller node.
 2. SSH to the controller node using the key pair that you specified.
 
-`ssh -i <key.pem> <controller-node-ip>`
+`ssh -i <key.pem> ec2-user@<controller-node-ip>`
 
 3. Set the kubeconfig.
 
