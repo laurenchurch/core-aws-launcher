@@ -159,21 +159,11 @@ while [[ "$(kubectl -n ingress-nginx get svc ingress-nginx -o jsonpath='{.status
 kubectl create namespace ${STACK_NAME}
 kubectl config set-context $(kubectl config current-context) --namespace=${STACK_NAME}
 
-#curl -O https://raw.githubusercontent.com/CloudBees/core-aws-launcher/master/cert/server.config
-#sed -i -e "s#cje.example.com#$CJEHOSTNAME#" "server.config"
-
-#openssl req -config server.config -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
-
-#openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-
-#kubectl create secret tls cjoc-tls --cert=server.crt --key=server.key
-
-curl -O https://raw.githubusercontent.com/CloudBees/core-aws-launcher/master/manifest/cloudbees-core.yml
+curl -O https://s3.amazonaws.com/core-aws-launcher/cloudbees-core.yml
 sed -i -e "s#cje.example.com#$CJEHOSTNAME#" "cloudbees-core.yml"
 kubectl apply -f cloudbees-core.yml
 kubectl rollout status sts cjoc
 
-#kubectl get nodes --watch
 
 
 

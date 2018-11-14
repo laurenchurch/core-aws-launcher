@@ -389,25 +389,18 @@ kbd {
 <ol>
 <li>When completed and the EKS cluster shows <em>Active</em>, go to the <a href="https://console.aws.amazon.com/ec2">EC2 console</a> to get the public IP of the EC2 controller node.</li>
 <li>SSH to the controller node using the key pair that you specified.</li>
-</ol>
 
 <p><code>ssh -i &lt;key.pem&gt; &lt;controller-node-ip&gt;</code></p>
 
-<ol>
 <li>Set the kubeconfig.</li>
-</ol>
 
 <p><code>export KUBECONFIG=/home/ec2-user/.kube/config</code></p>
 
-<ol>
 <li>Set your kubernetes context.</li>
-</ol>
 
 <p><code>sudo aws eks update-kubeconfig --name &lt;eks-cluster-name&gt; --region &lt;region&gt; --kubeconfig $KUBECONFIG</code></p>
 
-<ol>
 <li>Execute the following to get the list of namespaces.</li>
-</ol>
 
 <p><code>kubectl get namespaces</code></p>
 
@@ -420,20 +413,15 @@ ingress-nginx      Active    2m
 kube-public        Active    8m
 kube-system        Active    8m</code></pre></div>
 
-<ol>
 <li>Get the URL for CloudBees Core.</li>
-</ol>
 
 <p><code>kubectl -n ingress-nginx get svc ingress-nginx -o jsonpath=&#39;{.status.loadBalancer.ingress[0].hostname}&#39;</code></p>
 
-<ol>
 <li>Get the initial admin password.</li>
-</ol>
 
 <p><code>kubectl exec -n &lt;cloudformation stackname&gt; cjoc-0 -- cat /var/jenkins_home/secrets/initialAdminPassword</code></p>
 
-<ol>
-<li>Enter that URL into your browser.</li>
+<li>Enter the CloudBees Core URL into your browser.</li>
 <li>You will be presented with the CloudBees Core setup wizard. The first step is to enter the initial admin password. Enter it from above.</li>
 <li>Complete the next steps of the setup wizard to install plugins and create your first user. You may request a trial license or enter a commercial license.</li>
 </ol>

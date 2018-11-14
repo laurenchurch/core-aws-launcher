@@ -81,7 +81,7 @@ kube-system        Active    8m
 
 `kubectl exec -n <cloudformation stackname> cjoc-0 -- cat /var/jenkins_home/secrets/initialAdminPassword`
 
-8. Enter that URL into your browser.
+8. Enter the CloudBees Core URL into your browser.
 9. You will be presented with the CloudBees Core setup wizard. The first step is to enter the initial admin password. Enter it from above.
 10. Complete the next steps of the setup wizard to install plugins and create your first user. You may request a trial license or enter a commercial license.
 
