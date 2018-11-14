@@ -4,13 +4,24 @@ This repository contains the resources to launch [CloudBees Core](https://www.cl
 
 ## Get Started
 
+### Requirements:
+
+* Active AWS subscription for CloudBees Core. Subscribe [here](https://aws.amazon.com/marketplace/pp/B07JQ19L5T)!
+
+* Ensure you have IAM permissions to 
+	* Create a Role
+	* Create a VPC
+	* Create an EC2 instance
+
+	You may also specify a role during the CloudFormation configuration.
+	
+	![CloudFormation IAM](https://s3.amazonaws.com/core-aws-launcher/CloudFormation+permission.png)
+
 ### Create the EKS Cluster and Deploy CloudBees Core
 
-### Required: Active AWS Subscription for CloudBees Core. Subscribe [here](https://aws.amazon.com/marketplace/pp/B07JQ19L5T)!
 
-1. Click on the Launch button below to go to your CloudFormation console and create the stack. This will create a new EKS cluster and deploy CloudBees Core into the cluster. This uses the CloudFormation template in this repo, but located at the S3 location:
 
-**Active AWS Subscription for CloudBees Core Required!**
+1. Click on the Launch button below to go to your CloudFormation console and create the stack. This will create a new EKS cluster and deploy CloudBees Core into the cluster. 
 
 <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cloudbees-core-1&amp;templateURL=https://s3.amazonaws.com/core-aws-launcher/create-eks-main.yaml"><img alt="Launch CloudBees Core Stack" src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png"></a>
 
