@@ -22,7 +22,7 @@
     },
 
     "EKSRoleArn": {
-      "Description": "EKSRoleArn",
+      "Description": "Provide an IAM role that allows EKS to manage clusters on your behalf with AmazonEKSClusterPolicy and AmazonEKSServicePolicy.",
       "Type": "String"      
     },
 
