@@ -420,26 +420,6 @@ kube-system        Active    8m</code></pre></div>
 <li>Complete the next steps of the setup wizard to install plugins and create your first user. You may request a trial license or enter a commercial license.</li>
 </ol>
 
-<h2 id="toc_5">Troubleshooting</h2>
-
-<h3 id="toc_6">View the CloudFormation Stack Events</h3>
-
-<p>View the events in <a href="https://console.aws.amazon.com/cloudformation">CloudFormation</a> for your stack and look for failed events.</p>
-
-<h3 id="toc_7">View the bootstrap.sh Output for Help</h3>
-
-<p>The bootstrap.sh script creates the EKS cluster and deploys CloudBees Core. The output of the script can provide help for troubleshooting issues.</p>
-
-<h4 id="toc_8">From the EC2 Console</h4>
-
-<p>From the <a href="https://console.aws.amazon.com/ec2">EC2 console</a>, select the EC2 controller node. Access the context menu and select <em>Instance Settings -&gt; Get System Log</em>. </p>
-
-<p><img src="https://s3.amazonaws.com/core-aws-launcher/CloudFormation+system-log.png" alt="EC2 System Log" width="400"></p>
-
-<h4 id="toc_9">From the EC2 Controller Node</h4>
-
-<p>Access /var/log/cloud-init-output.log on the EC2 controller node instance. See above for how to SSH into the EC2 controller node.</p>
-
 <h2 id="toc_10">Next Steps</h2>
 
 <h3 id="toc_11">Create a Team and Connect a Repo</h3>
@@ -473,6 +453,26 @@ kube-system        Active    8m</code></pre></div>
 <li><a href="https://go.cloudbees.com/docs/cloudbees-core/cloud-reference-architecture/ra-for-eks/">Reference Architecture</a></li>
 <li><a href="https://pages.cloudbees.com/l/272242/2018-06-26/9sjwj/272242/54721/cloudbees_core.pdf">Solution Brief</a></li>
 </ul>
+
+<h2 id="toc_5">Troubleshooting</h2>
+
+<h3 id="toc_6">View the CloudFormation Stack Events</h3>
+
+<p>View the events in <a href="https://console.aws.amazon.com/cloudformation">CloudFormation</a> for your stack and look for failed events.</p>
+
+<h3 id="toc_7">View the bootstrap.sh Output for Help</h3>
+
+<p>The bootstrap.sh script creates the EKS cluster and deploys CloudBees Core. The output of the script can provide help for troubleshooting issues.</p>
+
+<h4 id="toc_8">From the EC2 Console</h4>
+
+<p>From the <a href="https://console.aws.amazon.com/ec2">EC2 console</a>, select the EC2 controller node. Access the context menu and select <em>Instance Settings -&gt; Get System Log</em>. </p>
+
+<p><img src="https://s3.amazonaws.com/core-aws-launcher/CloudFormation+system-log.png" alt="EC2 System Log" width="400"></p>
+
+<h4 id="toc_9">From the EC2 Controller Node</h4>
+
+<p>Access /var/log/cloud-init-output.log on the EC2 controller node instance. See above for how to SSH into the EC2 controller node.</p>
 
 
 

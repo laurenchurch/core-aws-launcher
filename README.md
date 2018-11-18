@@ -85,21 +85,6 @@ kube-system        Active    8m
 9. You will be presented with the CloudBees Core setup wizard. The first step is to enter the initial admin password. Enter it from above.
 10. Complete the next steps of the setup wizard to install plugins and create your first user. You may request a trial license or enter a commercial license.
 
-## Troubleshooting
-### View the CloudFormation Stack Events
-View the events in [CloudFormation](https://console.aws.amazon.com/cloudformation) for your stack and look for failed events.
-
-### View the bootstrap.sh Output for Help
-The bootstrap.sh script creates the EKS cluster and deploys CloudBees Core. The output of the script can provide help for troubleshooting issues.
-
-#### From the EC2 Console
-From the [EC2 console](https://console.aws.amazon.com/ec2), select the EC2 controller node. Access the context menu and select *Instance Settings -> Get System Log*. 
-
-![EC2 System Log](https://s3.amazonaws.com/core-aws-launcher/CloudFormation+system-log.png)
-
-#### From the EC2 Controller Node
-Access /var/log/cloud-init-output.log on the EC2 controller node instance. See above for how to SSH into the EC2 controller node.
-
 ## Next Steps
 ### Create a Team and Connect a Repo
 [Follow these steps to create a team and connect your repo.](https://go.cloudbees.com/docs/cloudbees-core/cloud-admin-guide/getting-started/#)
@@ -123,3 +108,18 @@ Request a license by sending an email to info@cloudbees.com or support@cloudbees
 * [Using CloudBees Core on EKS](https://go.cloudbees.com/docs/cloudbees-core/cloud-install-guide/eks-install/)
 * [Reference Architecture](https://go.cloudbees.com/docs/cloudbees-core/cloud-reference-architecture/ra-for-eks/)
 * [Solution Brief](https://pages.cloudbees.com/l/272242/2018-06-26/9sjwj/272242/54721/cloudbees_core.pdf)
+
+## Troubleshooting
+### View the CloudFormation Stack Events
+View the events in [CloudFormation](https://console.aws.amazon.com/cloudformation) for your stack and look for failed events.
+
+### View the bootstrap.sh Output for Help
+The bootstrap.sh script creates the EKS cluster and deploys CloudBees Core. The output of the script can provide help for troubleshooting issues.
+
+#### From the EC2 Console
+From the [EC2 console](https://console.aws.amazon.com/ec2), select the EC2 controller node. Access the context menu and select *Instance Settings -> Get System Log*. 
+
+![EC2 System Log](https://s3.amazonaws.com/core-aws-launcher/CloudFormation+system-log.png)
+
+#### From the EC2 Controller Node
+Access /var/log/cloud-init-output.log on the EC2 controller node instance. See above for how to SSH into the EC2 controller node.
