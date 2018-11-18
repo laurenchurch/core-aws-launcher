@@ -44,7 +44,7 @@ This repository contains the resources to launch [CloudBees Core](https://www.cl
 
 ![EC2 Console](https://s3.amazonaws.com/core-aws-launcher/EC2-EKS-nodes.png)
 
-### Connect to the EKS Cluster
+### Connect to the EKS Cluster via the EC2 Controller Node
 1. When completed and the EKS cluster shows *Active*, go to the [EC2 console](https://console.aws.amazon.com/ec2) to get the public IP of the EC2 controller node.
 2. SSH to the controller node using the key pair that you specified.
 
@@ -79,11 +79,26 @@ kube-system        Active    8m
 
 7. Get the initial admin password.
 
-`kubectl exec -n <cloudformation stackname> cjoc-0 -- cat /var/jenkins_home/secrets/initialAdminPassword`
+`kubectl exec -n <cloudbees namespace> cjoc-0 -- cat /var/jenkins_home/secrets/initialAdminPassword`
 
 8. Enter the CloudBees Core URL into your browser.
 9. You will be presented with the CloudBees Core setup wizard. The first step is to enter the initial admin password. Enter it from above.
 10. Complete the next steps of the setup wizard to install plugins and create your first user. You may request a trial license or enter a commercial license.
+
+## Troubleshooting
+### View the CloudFormation Stack Events
+View the events in [CloudFormation](https://console.aws.amazon.com/cloudformation) for your stack and look for failed events.
+
+### View the bootstrap.sh Output for Help
+The bootstrap.sh script creates the EKS cluster and deploys CloudBees Core. The output of the script can provide help for troubleshooting issues.
+
+#### From the EC2 Console
+From the [EC2 console](https://console.aws.amazon.com/ec2), select the EC2 controller node. Access the context menu and select *Instance Settings -> Get System Log*. 
+
+![EC2 System Log](https://s3.amazonaws.com/core-aws-launcher/CloudFormation+system-log.png)
+
+#### From the EC2 Controller Node
+Access /var/log/cloud-init-output.log on the EC2 controller node instance. See above for how to SSH into the EC2 controller node.
 
 ## Next Steps
 ### Create a Team and Connect a Repo

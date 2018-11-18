@@ -3,6 +3,7 @@
 yum update -y
 yum install jq -y
 yum install git -y
+
 #yum install openssl -y
 JQ_COMMAND=/usr/bin/jq
 WORKER_NODES_CFN=https://s3.amazonaws.com/core-aws-launcher/create-eks-workers.yaml
@@ -54,7 +55,6 @@ unzip awscli-bundle.zip
 ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 export PATH=/usr/local/bin/:${PATH}
 
-
 export AWS_INSTANCE_IAM_ROLE=$(curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/)
 export AWS_ACCESSKEYID=$(curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/${AWS_INSTANCE_IAM_ROLE} | ${JQ_COMMAND} '.AccessKeyId'| sed 's/"//g')
 export AWS_SECRETACCESSKEY=$(curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/${AWS_INSTANCE_IAM_ROLE} | ${JQ_COMMAND} '.SecretAccessKey' | sed 's/"//g')
@@ -72,12 +72,13 @@ SECURITY_GROUP=$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} -
 SUBNET_IDS=$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${AWS_REGION} | jq '.Stacks[0].Outputs[3].OutputValue' | sed 's/"//g')
 VPC_ID=$(aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${AWS_REGION} | jq '.Stacks[0].Outputs[2].OutputValue' | sed 's/"//g')
 
-
 curl -O https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
 chmod +x aws-iam-authenticator
 curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/kubectl
 chmod +x kubectl
 echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+
+#cfn-init --stack ${STACK_NAME} --resource Ec2Instance --region ${AWS_REGION}
 
 echo "aws eks create-cluster --name ${EKS_CLUSTER_NAME} --role-arn  ${ROLE_ARN} --resources-vpc-config subnetIds=${SUBNET_IDS},securityGroupIds=${SECURITY_GROUP} --region ${AWS_DEFAULT_REGION}"
 
@@ -156,13 +157,17 @@ while [[ "$(kubectl -n ingress-nginx get svc ingress-nginx -o jsonpath='{.status
     echo "NGINX INGRESS: $INGRESS_IP"
     CJEHOSTNAME=`echo $INGRESS_IP | sed "s/\"//g"`
 
-kubectl create namespace ${STACK_NAME}
+kubectl create namespace ${EKS_CLUSTER_NAME}
+
 kubectl config set-context $(kubectl config current-context) --namespace=${STACK_NAME}
 
 curl -O https://s3.amazonaws.com/core-aws-launcher/cloudbees-core.yml
 sed -i -e "s#cje.example.com#$CJEHOSTNAME#" "cloudbees-core.yml"
 kubectl apply -f cloudbees-core.yml
+
 kubectl rollout status sts cjoc
+
+#cfn-signal --exit-code $? --stack ${STACK_NAME} --resource Ec2Instance --region ${AWS_REGION}
 
 
 

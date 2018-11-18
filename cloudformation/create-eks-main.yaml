@@ -105,8 +105,9 @@
       "Default": 64
     },
     "ClusterName": {
-      "Description": "The cluster name provided when the cluster was created. If it is incorrect, nodes will not be able to join the cluster.",
+      "Description": "The cluster name provided when the cluster was created. This is also used for the k8s namespace for CloudBees Core. It must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character.",
       "Type": "String",
+      "AllowedPattern":"[a-z0-9]([-a-z0-9]*[a-z0-9])?",
       "MinLength":5
     },
     "BootstrapArguments": {
@@ -327,7 +328,6 @@
         }
       }
     }
-
   },
 
 
